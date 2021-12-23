@@ -19,7 +19,7 @@ public class Graph {
     public void addEdge(int v, int w)
     {
         adj[v].add(w); // Add w to v’s list.
-        adj[w].add(v); // Add v to w’s list.
+        adj[w].add(v); // Add v to w’s list. -> To delete if you want a directed graph
         E++;
     }
     public Iterable<Integer> adj(int v)

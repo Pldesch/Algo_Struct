@@ -23,6 +23,7 @@ public class Dijkstra {
             for(Edge e : G.adj(v))
             {
                 int w = e.to();
+                if(s == w) break;
                 if (distTo[w] > distTo[v] + e.weight())
                 {
                     distTo[w] = distTo[v] + e.weight();
@@ -35,16 +36,15 @@ public class Dijkstra {
     }
 
     public int distTo(int v){return distTo[v];}
-    public boolean hasPathTo(int v){return edgeTo[v] != null;}
+    public boolean hasPathTo(int v){
+        return distTo[v] < Integer.MAX_VALUE;
+    }
     public Iterable<Edge> pathTo(int v){
+        if(!hasPathTo(v)) return null;
         Stack<Edge> path = new Stack<>();
-        Edge p = edgeTo[v];
-        while(p.from() != src){
-            path.push(p);
-            p = edgeTo[p.from()];
+        for(Edge e = edgeTo[v]; e!= null; e=edgeTo[e.from()]){
+            path.push(e);
         }
-        path.push(p);
         return path;
-
     }
 }
